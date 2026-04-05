@@ -166,7 +166,8 @@ cp .env.example .env
 
 # Start development server
 npm run dev
-
+npm install express pg dotenv cors helmet morgan bcrypt jsonwebtoken zod
+npm install --save-dev nodemon
 # Or start production server
 npm start
 ```
@@ -191,7 +192,6 @@ JWT_SECRET=<your-strong-access-token-secret>
 JWT_EXPIRES_IN=1d
 
 JWT_REFRESH_SECRET=<your-strong-refresh-token-secret>
-REFRESH_TOKEN_EXPIRES_IN=7d
 ```
 
 > ⚠️ **Never commit your `.env` file.** Add it to `.gitignore`.
@@ -227,7 +227,7 @@ Register a new user. New users are assigned the `viewer` role by default.
 
 **Validation rules:** `name` ≥ 2 chars, valid `email`, `password` ≥ 6 chars.
 
-**Response `200`:**
+**Response `201`:**
 ```json
 {
   "id": "uuid",
@@ -327,7 +327,28 @@ List all users with pagination.
 ```
 
 ---
+#### `GET /api/users/:id` — `admin` only
 
+List user with particular id.
+
+**Query parameters:**
+
+| Param | Type | Default | Description |
+|---|---|---|---|
+| `page` | number | 1 | Page number |
+| `limit` | number | 10 | Results per page |
+
+**Response `200`:**
+```json
+{
+  "data": [
+    { "id": "uuid", "name": "...", "email": "...", "role": "viewer", "status": "active", "created_at": "..." }
+  ],
+  "meta": { "total": 42, "page": 1, "pages": 5 }
+}
+```
+
+---
 #### `GET /api/users/me` — any authenticated user
 
 Get the currently authenticated user's profile.
@@ -414,7 +435,7 @@ Or with category name auto-creation:
 
 **Validation rules:** `amount` must be positive; `type` must be `"income"` or `"expense"`; either `category_id` or `category` is required.
 
-**Response `200`:** Returns the created record object.
+**Response `201`:** Returns the created record object.
 
 ---
 
@@ -496,7 +517,7 @@ Create a new category.
 
 **Validation:** `name` ≥ 2 chars; `type` must be `"income"` or `"expense"`.
 
-**Response `200`:** Returns the created category object.
+**Response `201`:** Returns the created category object.
 
 ---
 
@@ -621,6 +642,7 @@ The API uses a three-tier role system. Roles are assigned per user and enforced 
 | `POST /api/auth/*` | ✅ | ✅ | ✅ |
 | `GET /api/users/me` | ✅ | ✅ | ✅ |
 | `GET /api/users` | ❌ | ❌ | ✅ |
+| `GET /api/users/:id` | ❌ | ❌ | ✅ |
 | `PATCH /api/users/:id/role` | ❌ | ❌ | ✅ |
 | `PATCH /api/users/:id/status` | ❌ | ❌ | ✅ |
 | `GET /api/records` | ✅ | ✅ | ✅ |
