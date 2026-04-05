@@ -5,7 +5,7 @@ exports.generateAccessToken = payload =>
  jwt.sign(
   payload,
   process.env.JWT_SECRET,
-  { expiresIn: "1d" }
+  { expiresIn: "15m" }
  );
 
 
