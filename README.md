@@ -189,7 +189,6 @@ DATABASE_URL=postgresql://<user>:<password>@localhost:5432/<dbname>
 
 # JWT
 JWT_SECRET=<your-strong-access-token-secret>
-JWT_EXPIRES_IN=1d
 
 JWT_REFRESH_SECRET=<your-strong-refresh-token-secret>
 ```
@@ -329,27 +328,29 @@ List all users with pagination.
 ---
 #### `GET /api/users/:id` — `admin` only
 
-List user with particular id.
+Get a specific user by their ID.
 
-**Query parameters:**
+**Path parameters:**
 
-| Param | Type | Default | Description |
-|---|---|---|---|
-| `page` | number | 1 | Page number |
-| `limit` | number | 10 | Results per page |
+| Param | Type | Description |
+|---|---|---|
+| `id` | UUID | ID of the user |
 
 **Response `200`:**
 ```json
 {
-  "data": [
-    { "id": "uuid", "name": "...", "email": "...", "role": "viewer", "status": "active", "created_at": "..." }
-  ],
-  "meta": { "total": 42, "page": 1, "pages": 5 }
+  "id": "uuid",
+  "name": "Zarana Sanghavi",
+  "email": "zarana@example.com",
+  "role": "viewer",
+  "status": "active",
+  "created_at": "2025-01-01T12:00:00.000Z"
 }
+####
 ```
 
 ---
-#### `GET /api/users/me` — any authenticated user
+`GET /api/users/me` — any authenticated user
 
 Get the currently authenticated user's profile.
 
