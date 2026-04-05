@@ -13,7 +13,6 @@ require("./modules/auth/routes");
 const userRoutes = require("./modules/users/routes");
 
 app.use("/api/users", userRoutes);
-app.use(express.json());
 app.use(
  "/api/auth",
  authRoutes
