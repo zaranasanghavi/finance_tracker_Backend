@@ -669,17 +669,6 @@ Common HTTP status codes used:
 | `404` | Resource not found |
 | `500` | Internal server error |
 
----
-
-## Known Issues & Improvements
-
-The following issues were identified during code review and are recommended for future work:
-
-**Security**
-- The `.env` file is currently committed to the repository and contains real secrets. Rotate all secrets immediately and add `.env` to `.gitignore`.
-- The `node_modules` directory is also committed — remove it and add to `.gitignore`.
-- The `countRecords` query in `records/repository.js` starts its parameter index at `$2` instead of `$1`, which will cause incorrect query generation when filters are applied.
-
 **Architecture**
 - The dashboard's `resolveScope` function grants `admin` and `analyst` access to all users' data. Consider whether analysts should see all data or only their own.
 - Categories `deleteCategory` is a hard delete while records use soft delete — this inconsistency could cause orphaned foreign key references.
