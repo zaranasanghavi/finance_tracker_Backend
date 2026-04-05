@@ -1,7 +1,7 @@
 # Finance Tracker Backend
 
-A RESTful API backend for a personal finance tracking application. Built with **Node.js**, **Express v5**, and **PostgreSQL**. Supports multi-user authentication, role-based access control, income/expense records management, category management, and an analytics dashboard.
-
+A RESTful API backend for a finance tracking application. Built with **Node.js**, **Express v5**, and **PostgreSQL**. Supports multi-user authentication, role-based access control, income/expense records management, category management, and an analytics dashboard.
+This application is designed for organizational use, where an Admin has full management control, an Analyst can view records and the dashboard, and a Viewer has read-only access to records. Users can self-register as Viewers, and only the Admin can assign or update user roles.
 ---
 
 ## Table of Contents
@@ -26,7 +26,7 @@ A RESTful API backend for a personal finance tracking application. Built with **
 
 ## Features
 
-- **JWT Authentication** — access tokens (1 day) + refresh tokens (7 days) stored in a `sessions` table
+- **JWT Authentication** — access tokens (15m day) + refresh tokens (7 days) stored in a `sessions` table
 - **Token Rotation** — on every `/auth/refresh`, the old refresh token is deleted and a new one is issued
 - **Role-Based Access Control** — three roles: `admin`, `analyst`, `viewer` with fine-grained endpoint permissions
 - **Financial Records** — create, read, update, soft-delete income and expense transactions with filtering and pagination
