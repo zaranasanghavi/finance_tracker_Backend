@@ -346,7 +346,6 @@ Get a specific user by their ID.
   "status": "active",
   "created_at": "2025-01-01T12:00:00.000Z"
 }
-####
 ```
 
 ---
